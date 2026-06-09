@@ -205,7 +205,7 @@ export default function Dashboard({ records, stats }) {
           <BatteryVisual voltage={demoVoltage} hasCrack={lastRecord?.hasCrack || false} />
           <div style={{ width: '100%', borderTop: '1px solid #1e293b', paddingTop: 16,
             display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[['Nominal Voltage', `${BATTERY.voltage} V`], ['Type', BATTERY.type], ['Capacity', `${BATTERY.capacity} Ah`]].map(([k, v]) => (
+            {[['Voltage', `${BATTERY.voltage} V`], ['Type', BATTERY.type], ['Capacity', `${BATTERY.capacity} Ah`]].map(([k, v]) => (
               <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
                 <span style={{ color: '#64748b' }}>{k}</span>
                 <span style={{ color: 'white', fontWeight: 600 }}>{v}</span>
