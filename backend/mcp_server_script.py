@@ -1,12 +1,18 @@
 import asyncio
+import os # 1. Import os to read environment variables
+from dotenv import load_dotenv # 2. Import dotenv to load your local .env keys
 from mcp.server.fastmcp import FastMCP
 from motor.motor_asyncio import AsyncIOMotorClient
+
+# Load the local .env file variables securely
+load_dotenv()
 
 # Initialize FastMCP Server Protocol
 mcp = FastMCP("BatteryQC-Pro-Storage-Server")
 
-MONGO_URL = "mongodb+srv://student:Newnav@cluster0.799fu7o.mongodb.net/?appName=Cluster0"
-DB_NAME = "batteryqc"
+# 3. Pull the variables dynamically from your system configuration environments instead of hardcoding!
+MONGO_URL = os.getenv("MONGO_URL")
+DB_NAME = os.getenv("DB_NAME", "batteryqc")
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
