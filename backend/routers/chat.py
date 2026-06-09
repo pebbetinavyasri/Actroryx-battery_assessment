@@ -2,15 +2,20 @@ from fastapi import APIRouter, HTTPException
 import httpx
 import re
 import json
+import os # Make sure os is imported
+from dotenv import load_dotenv # Import the environment loader
 from motor.motor_asyncio import AsyncIOMotorClient
+
+# Load the keys securely from your local .env file
+load_dotenv()
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
-OLLAMA_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "llama3:latest"
-
-MONGO_URL = "mongodb+srv://student:Newnav@cluster0.799fu7o.mongodb.net/?appName=Cluster0"
-DB_NAME = "batteryqc"
+# Pull the configurations dynamically (No hardcoded passwords!)
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
+MODEL_NAME = os.getenv("MODEL_NAME", "llama3:latest")
+MONGO_URL = os.getenv("MONGO_URL")
+DB_NAME = os.getenv("DB_NAME", "batteryqc")
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
