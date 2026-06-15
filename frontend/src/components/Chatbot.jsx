@@ -12,13 +12,45 @@ const SUGGESTIONS = [
 ];
 
 export function Chatbot() {
-  const { messages, loading, send } = useChat();
+  // Pull core state controls from hook
+  const { messages: hookMessages, loading, send } = useChat();
   const [input, setInput] = useState('');
   const endRef = useRef(null);
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+  // Maintain persistent local mirror state to survive unmounting loops
+  const [persistentMessages, setPersistentMessages] = useState(() => {
+    const saved = localStorage.getItem('battery_qc_chat_history');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return [];
+      }
+    }
+    return [];
+  });
 
-  const handleSend = () => { send(input); setInput(''); };
+  // 1. Sync messages state from hook into persistent storage array
+  useEffect(() => {
+    if (hookMessages && hookMessages.length > 0) {
+      setPersistentMessages(hookMessages);
+      localStorage.setItem('battery_qc_chat_history', JSON.stringify(hookMessages));
+    }
+  }, [hookMessages]);
+
+  // 2. Smooth auto-scrolling fallback hook
+  useEffect(() => { 
+    endRef.current?.scrollIntoView({ behavior: 'smooth' }); 
+  }, [persistentMessages]);
+
+  const handleSend = () => { 
+    if (!input.trim()) return;
+    send(input); 
+    setInput(''); 
+  };
+
+  // Ensure displaying array fallback logic uses storage state mirrors
+  const displayMessages = persistentMessages.length > 0 ? persistentMessages : hookMessages;
 
   return (
     <div style={{ background: 'linear-gradient(135deg,#1e293b,#0f172a)', borderRadius: 20,
@@ -36,14 +68,14 @@ export function Chatbot() {
           <div style={{ fontSize: 15, fontWeight: 700, color: 'white' }}>AI Battery Inspector</div>
           <div style={{ fontSize: 11, color: '#6366f1', display: 'flex', alignItems: 'center', gap: 5 }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} />
-            Powered by Claude AI
+            Powered by Local Llama3
           </div>
         </div>
       </div>
 
       {/* Messages */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {messages.map((m, i) => (
+        {displayMessages.map((m, i) => (
           <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
             {m.role === 'assistant' && (
               <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
@@ -71,8 +103,8 @@ export function Chatbot() {
         <div ref={endRef} />
       </div>
 
-      {/* Suggestions (only before first user message) */}
-      {messages.length === 1 && (
+      {/* Suggestions */}
+      {displayMessages.length <= 1 && (
         <div style={{ padding: '0 16px 10px', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {SUGGESTIONS.map(s => (
             <button key={s} onClick={() => { send(s); }}
@@ -84,7 +116,7 @@ export function Chatbot() {
         </div>
       )}
 
-      {/* Input */}
+      {/* Input Form Control */}
       <div style={{ padding: '12px 16px', borderTop: '1px solid #1e293b', display: 'flex', gap: 10 }}>
         <input value={input} onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleSend()}
