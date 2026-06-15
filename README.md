@@ -13,6 +13,7 @@ Ensure you check out our execution pipeline in action:
 ---
 
 ## Project Structure
+```
 batteryqc/
 ├── frontend/                  # React app (Create React App)
 │   ├── public/
@@ -41,21 +42,20 @@ batteryqc/
 │   └── package.json
 │
 └── backend/                   # FastAPI app
-├── routers/
-│   ├── inspections.py     # CRUD for inspection records
-│   └── chat.py            # Local AI chat endpoint
-├── models/
-│   └── schemas.py         # Pydantic models
-├── database/
-│   └── connection.py      # Motor async MongoDB client
-├── utils/
-│   ├── config.py          # Settings from .env
-│   └── inspection_logic.py
-├── main.py                # FastAPI entry point
-├── mcp_server_script.py   # Model Context Protocol storage server script
-├── requirements.txt
-└── .env.example
----
+    ├── routers/
+    │   ├── inspections.py     # CRUD for inspection records
+    │   └── chat.py            # Claude AI chat endpoint
+    ├── models/
+    │   └── schemas.py         # Pydantic models
+    ├── database/
+    │   └── connection.py      # Motor async MongoDB client
+    ├── utils/
+    │   ├── config.py          # Settings from .env
+    │   └── inspection_logic.py
+    ├── main.py                # FastAPI entry point
+    ├── requirements.txt
+    └── .env.example
+```
 
 ## Prerequisites
 
