@@ -6,10 +6,11 @@ Professional Li-ion Battery Inspection System — React frontend + FastAPI backe
 
 ## 📺 Project Demo Video
 
+## 📺 Project Demo Video
+
 Ensure you check out our execution pipeline in action:
 
-<video src="https://github.com/pebbetinavyasri/Actroryx-battery_assessment/blob/main/demo.mp4?raw=true" width="100%" controls></video>
-
+[▶ Watch Project Execution Demo Video](demo.mp4)
 ---
 
 ## Project Structure
