@@ -7,7 +7,8 @@ An advanced, full-stack 3.7V Li-ion Battery Quality Control system featuring rea
 
 Ensure you check out our execution pipeline in action:
 
-<video src="demo.mp4" width="100%" controls data-canonical-src="demo.mp4"></video>
+<video src="https://github.com/pebbetinavyasri/Actroryx-battery_assessment/blob/main/demo.mp4?raw=true" width="100%" controls></video>
+
 ---
 
 ## 🚀 Key Features
