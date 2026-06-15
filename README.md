@@ -3,12 +3,11 @@
 An advanced, full-stack 3.7V Li-ion Battery Quality Control system featuring real-time data plotting analytics dashboards and an interactive, context-aware AI Battery Expert assistant.
 
 ---
-
 ## 📺 Project Demo Video
 
 Ensure you check out our execution pipeline in action:
-![BatteryQC Pro Demo](demo.mp4)
 
+<video src="demo.mp4" width="100%" controls data-canonical-src="demo.mp4"></video>
 ---
 
 ## 🚀 Key Features
