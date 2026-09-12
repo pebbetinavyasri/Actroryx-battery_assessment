@@ -5,10 +5,7 @@ Professional Li-ion Battery Inspection System — React frontend + FastAPI backe
 ---
 
 ## 📺 Project Demo Video
-
-Ensure you check out our execution pipeline in action:
-
-[▶ Watch Project Execution Demo Video](demo.mp4)
+https://github.com/user-attachments/assets/63a6ffe2-a9e6-43a7-84eb-1cc13134d894
 ---
 
 ## Project Structure
